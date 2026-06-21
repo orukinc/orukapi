@@ -17,4 +17,4 @@ node sse.js
 | [`single_story.js`](single_story.js) | `GET /v1/stories/{id}` with corroboration printout |
 | [`sse.js`](sse.js) | Long-lived SSE consumer (Trader / Developer / Enterprise tier) |
 | [`webhook_verify.js`](webhook_verify.js) | Express endpoint that verifies HMAC-SHA256 signatures |
-| [`package.json`](package.json) | Minimal — only `eventsource` and `express` |
+| [`package.json`](package.json) | Minimal - only `eventsource` and `express` |

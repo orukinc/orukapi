@@ -24,7 +24,7 @@ client.on_event do |event|
     puts "  ↑ +#{(data['newSource'] || '').ljust(20)} now #{data['count'] || 0} sources on " \
          "#{(data['storyId'] || '')[4, 8]}"
   when 'heartbeat'
-    puts "· heartbeat — #{data['activeSources'] || 0} sources live"
+    puts "· heartbeat - #{data['activeSources'] || 0} sources live"
   else
     puts "[#{event.type}] #{data.to_json}"
   end

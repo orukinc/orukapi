@@ -40,7 +40,7 @@ printf("First seen: %s\nUpdated:    %s\n",
 );
 
 $corrob = $story['corroboration'] ?? [];
-printf("\n— Corroboration: %d independent sources —\n", $corrob['count'] ?? 0);
+printf("\n- Corroboration: %d independent sources -\n", $corrob['count'] ?? 0);
 foreach ($corrob['sourceDetails'] ?? [] as $sd) {
     printf("  • %-22s (%s, %s, %s)\n",
         $sd['name']     ?? '',
@@ -50,12 +50,12 @@ foreach ($corrob['sourceDetails'] ?? [] as $sd) {
     );
 }
 
-printf("\n— Timeline of developments —\n");
+printf("\n- Timeline of developments -\n");
 foreach ($story['timeline'] ?? [] as $t) {
     printf("  %s  %s\n", $t['at'] ?? '', $t['text'] ?? '');
 }
 
-printf("\n— Verbatim source quotes —\n");
+printf("\n- Verbatim source quotes -\n");
 foreach ($story['sources'] ?? [] as $s) {
     printf("  [%s]\n  \"%s\"\n\n", $s['station'] ?? '', $s['quote'] ?? '');
 }

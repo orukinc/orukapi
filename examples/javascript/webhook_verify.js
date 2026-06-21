@@ -61,7 +61,7 @@ app.post('/hooks/oruk', (req, res) => {
       console.log('[unhandled] %s', event);
   }
 
-  // Always 200 quickly — slow handlers get retried and back-pressured.
+  // Always 200 quickly - slow handlers get retried and back-pressured.
   res.status(200).send('ok');
 });
 

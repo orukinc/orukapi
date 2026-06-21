@@ -23,8 +23,8 @@ es.onopen = () => process.stderr.write('[sse] connected\n');
 
 es.onerror = (err: any) => {
   if (err?.status === 401) { console.error('[sse] 401 unauthorized'); process.exit(1); }
-  if (err?.status === 403) { console.error('[sse] 403 forbidden — needs Trader/Developer/Enterprise tier'); process.exit(1); }
-  process.stderr.write(`[sse] error — ${err?.message ?? err} (will auto-reconnect)\n`);
+  if (err?.status === 403) { console.error('[sse] 403 forbidden - needs Trader/Developer/Enterprise tier'); process.exit(1); }
+  process.stderr.write(`[sse] error - ${err?.message ?? err} (will auto-reconnect)\n`);
 };
 
 es.addEventListener('story', (ev: MessageEvent) => {
@@ -44,7 +44,7 @@ es.addEventListener('corroboration', (ev: MessageEvent) => {
 
 es.addEventListener('heartbeat', (ev: MessageEvent) => {
   const d: HeartbeatEvent = JSON.parse(ev.data);
-  console.log(`· heartbeat — ${d.activeSources ?? 0} sources live`);
+  console.log(`· heartbeat - ${d.activeSources ?? 0} sources live`);
 });
 
 process.on('SIGINT', () => { es.close(); process.exit(0); });

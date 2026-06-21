@@ -35,17 +35,17 @@ console.log(`First seen: ${story.firstSeenAt ?? ''}`);
 console.log(`Updated:    ${story.updatedAt ?? ''}`);
 
 const corrob = story.corroboration ?? {};
-console.log(`\n— Corroboration: ${corrob.count ?? 0} independent sources —`);
+console.log(`\n- Corroboration: ${corrob.count ?? 0} independent sources -`);
 for (const sd of corrob.sourceDetails ?? []) {
   console.log(`  • ${(sd.name ?? '').padEnd(22)} (${sd.region ?? ''}, ${sd.language ?? ''}, ${sd.medium ?? ''})`);
 }
 
-console.log('\n— Timeline of developments —');
+console.log('\n- Timeline of developments -');
 for (const t of story.timeline ?? []) {
   console.log(`  ${t.at ?? ''}  ${t.text ?? ''}`);
 }
 
-console.log('\n— Verbatim source quotes —');
+console.log('\n- Verbatim source quotes -');
 for (const s of story.sources ?? []) {
   console.log(`  [${s.station ?? ''}]`);
   console.log(`  "${s.quote ?? ''}"\n`);

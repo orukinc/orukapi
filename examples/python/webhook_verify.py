@@ -66,7 +66,7 @@ def oruk_webhook():
     else:
         log.info("[unhandled] %s", event)
 
-    # Always 200 quickly — slow handlers get retried and back-pressured.
+    # Always 200 quickly - slow handlers get retried and back-pressured.
     return "ok", 200
 
 

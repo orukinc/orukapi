@@ -44,18 +44,18 @@ func main() {
 	fmt.Printf("Location:   %v, %s (%s)\n", s.EventCity, s.EventCountry, s.EventRegion)
 
 	if s.Corroboration != nil {
-		fmt.Printf("\n— Corroboration: %d independent sources —\n", s.Corroboration.Count)
+		fmt.Printf("\n- Corroboration: %d independent sources -\n", s.Corroboration.Count)
 		for _, sd := range s.Corroboration.SourceDetails {
 			fmt.Printf("  • %-22s (%s, %s, %s)\n", sd.Name, sd.Region, sd.Language, sd.Medium)
 		}
 	}
 
-	fmt.Println("\n— Timeline of developments —")
+	fmt.Println("\n- Timeline of developments -")
 	for _, t := range s.Timeline {
 		fmt.Printf("  %s  %s\n", t.At, t.Text)
 	}
 
-	fmt.Println("\n— Verbatim source quotes —")
+	fmt.Println("\n- Verbatim source quotes -")
 	for _, src := range s.Sources {
 		fmt.Printf("  [%s]\n", src.Station)
 		fmt.Printf("  %q\n\n", src.Quote)

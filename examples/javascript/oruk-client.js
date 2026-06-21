@@ -1,5 +1,5 @@
 /**
- * OrukClient — minimal fetch-based client for the oruk live broadcast
+ * OrukClient - minimal fetch-based client for the oruk live broadcast
  * intelligence API. Node 18+ (uses the built-in `fetch`).
  *
  *   import { OrukClient } from './oruk-client.js';
@@ -11,7 +11,7 @@
 
 export class OrukAPIError extends Error {
   constructor(status, code, message, requestId) {
-    super(`oruk API: ${code} — ${message}`);
+    super(`oruk API: ${code} - ${message}`);
     this.name = 'OrukAPIError';
     this.status = status;
     this.code = code;

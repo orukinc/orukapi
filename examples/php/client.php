@@ -1,6 +1,6 @@
 <?php
 /**
- * OrukClient — minimal cURL-based client for the oruk live broadcast
+ * OrukClient - minimal cURL-based client for the oruk live broadcast
  * intelligence API. Drop into any PHP 8+ project; no Composer required.
  *
  *   $oruk = new OrukClient(getenv('ORUK_API_KEY'));
@@ -15,7 +15,7 @@ final class OrukClient {
 
     public function __construct(public ?string $apiKey = null) {}
 
-    /** Public feed — works without a key. */
+    /** Public feed - works without a key. */
     public function feed(array $params = []): array {
         return $this->get('/v1/stories/feed', $params, requiresKey: false);
     }
@@ -81,7 +81,7 @@ final class OrukClient {
         if ($status >= 400) {
             $code = $decoded['error']    ?? 'http_error';
             $msg  = $decoded['message']  ?? "HTTP $status from $path";
-            throw new RuntimeException("oruk API: $code — $msg", $status);
+            throw new RuntimeException("oruk API: $code - $msg", $status);
         }
         if (!is_array($decoded)) {
             throw new RuntimeException("Invalid JSON from $path");

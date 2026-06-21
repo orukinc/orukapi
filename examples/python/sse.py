@@ -1,4 +1,4 @@
-"""SSE consumer for /v1/stream — requires Trader / Developer / Enterprise tier.
+"""SSE consumer for /v1/stream - requires Trader / Developer / Enterprise tier.
 
     pip install -r requirements.txt
     export ORUK_API_KEY=ork_xxxxxxxx
@@ -39,7 +39,7 @@ def handle_event(event_type: str, data: dict) -> None:
         )
 
     elif event_type == "heartbeat":
-        print(f"· heartbeat — {data.get('activeSources', 0)} sources live")
+        print(f"· heartbeat - {data.get('activeSources', 0)} sources live")
 
     else:
         print(f"[{event_type}] {json.dumps(data)}")
@@ -57,9 +57,9 @@ def stream_once(api_key: str, last_event_id: Optional[str]) -> Optional[str]:
 
     resp = requests.get(SSE_URL, headers=headers, stream=True, timeout=(10, None))
     if resp.status_code == 401:
-        sys.exit("[sse] 401 unauthorized — check ORUK_API_KEY")
+        sys.exit("[sse] 401 unauthorized - check ORUK_API_KEY")
     if resp.status_code == 403:
-        sys.exit("[sse] 403 forbidden — SSE requires Trader/Developer/Enterprise tier")
+        sys.exit("[sse] 403 forbidden - SSE requires Trader/Developer/Enterprise tier")
     resp.raise_for_status()
 
     client = SSEClient(resp)

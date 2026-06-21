@@ -13,4 +13,4 @@ go run ./cmd/sse
 | [`cmd/basic/`](cmd/basic/) | Public feed + authed list + pagination |
 | [`cmd/single_story/`](cmd/single_story/) | Single story with timeline + quotes |
 | [`cmd/sse/`](cmd/sse/) | SSE consumer (Trader / Developer / Enterprise) |
-| [`go.mod`](go.mod) | Module file — no external deps |
+| [`go.mod`](go.mod) | Module file - no external deps |

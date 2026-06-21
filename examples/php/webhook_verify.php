@@ -40,7 +40,7 @@ if (!is_array($payload)) {
 
 handle_event($payload['event'] ?? 'unknown', $payload['data'] ?? []);
 
-// Always reply 200 quickly — slow webhook handlers get retried + back-pressured.
+// Always reply 200 quickly - slow webhook handlers get retried + back-pressured.
 http_response_code(200);
 echo 'ok';
 
@@ -61,7 +61,7 @@ function verify_oruk_signature(string $body, string $received, string $secret): 
 function handle_event(string $type, array $data): void {
     switch ($type) {
         case 'story':
-            // New or updated story — full payload (see README for shape)
+            // New or updated story - full payload (see README for shape)
             error_log(sprintf('[oruk] story %s impact=%d "%s"',
                 $data['id'] ?? '?',
                 $data['impact'] ?? 0,

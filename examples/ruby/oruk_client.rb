@@ -1,4 +1,4 @@
-# OrukClient — minimal Net::HTTP-based client for the oruk live broadcast
+# OrukClient - minimal Net::HTTP-based client for the oruk live broadcast
 # intelligence API. Standard library only.
 #
 #   oruk = OrukClient.new(ENV['ORUK_API_KEY'])
@@ -14,7 +14,7 @@ class OrukAPIError < StandardError
   attr_reader :status, :code, :request_id
   def initialize(status, code, message, request_id = nil)
     @status, @code, @request_id = status, code, request_id
-    super("oruk API: #{code} — #{message}")
+    super("oruk API: #{code} - #{message}")
   end
 end
 

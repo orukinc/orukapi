@@ -21,15 +21,15 @@ console.log(`Confidence: ${(story.confidence ?? 0).toFixed(2)}`);
 console.log(`Location:   ${story.eventCity ?? '?'}, ${story.eventCountry ?? '?'} (${story.eventRegion ?? '?'})`);
 
 const corrob = story.corroboration ?? { count: 0 };
-console.log(`\n— Corroboration: ${corrob.count} independent sources —`);
+console.log(`\n- Corroboration: ${corrob.count} independent sources -`);
 for (const sd of corrob.sourceDetails ?? []) {
   console.log(`  • ${(sd.name ?? '').padEnd(22)} (${sd.region ?? ''}, ${sd.language ?? ''}, ${sd.medium ?? ''})`);
 }
 
-console.log('\n— Timeline of developments —');
+console.log('\n- Timeline of developments -');
 for (const t of story.timeline ?? []) console.log(`  ${t.at}  ${t.text}`);
 
-console.log('\n— Verbatim source quotes —');
+console.log('\n- Verbatim source quotes -');
 for (const s of story.sources ?? []) {
   console.log(`  [${s.station}]`);
   console.log(`  "${s.quote}"\n`);

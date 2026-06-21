@@ -1,6 +1,6 @@
 # Python examples
 
-Runnable Python examples for the oruk API. Python 3.9+. Uses `requests` and (for SSE) the `sseclient-py` shim — both available via pip.
+Runnable Python examples for the oruk API. Python 3.9+. Uses `requests` and (for SSE) the `sseclient-py` shim - both available via pip.
 
 ```bash
 pip install -r requirements.txt

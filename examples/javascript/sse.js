@@ -1,5 +1,5 @@
 /**
- * SSE consumer for /v1/stream — requires Trader / Developer / Enterprise tier.
+ * SSE consumer for /v1/stream - requires Trader / Developer / Enterprise tier.
  *
  *   npm install
  *   export ORUK_API_KEY=ork_xxxxxxxx
@@ -30,9 +30,9 @@ const es = new EventSource(url, { headers });
 es.onopen = () => process.stderr.write('[sse] connected\n');
 
 es.onerror = err => {
-  if (err?.status === 401) { console.error('[sse] 401 unauthorized — check ORUK_API_KEY'); process.exit(1); }
-  if (err?.status === 403) { console.error('[sse] 403 forbidden — SSE requires Trader/Developer/Enterprise tier'); process.exit(1); }
-  process.stderr.write(`[sse] error — ${err?.message ?? err} (will auto-reconnect)\n`);
+  if (err?.status === 401) { console.error('[sse] 401 unauthorized - check ORUK_API_KEY'); process.exit(1); }
+  if (err?.status === 403) { console.error('[sse] 403 forbidden - SSE requires Trader/Developer/Enterprise tier'); process.exit(1); }
+  process.stderr.write(`[sse] error - ${err?.message ?? err} (will auto-reconnect)\n`);
 };
 
 es.addEventListener('story', ev => {
@@ -52,7 +52,7 @@ es.addEventListener('corroboration', ev => {
 
 es.addEventListener('heartbeat', ev => {
   const d = JSON.parse(ev.data);
-  console.log(`· heartbeat — ${d.activeSources ?? 0} sources live`);
+  console.log(`· heartbeat - ${d.activeSources ?? 0} sources live`);
 });
 
 // Graceful shutdown

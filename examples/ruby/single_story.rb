@@ -22,15 +22,15 @@ puts "Confidence: #{format('%.2f', story['confidence'] || 0)}"
 puts "Location:   #{story['eventCity'] || '?'}, #{story['eventCountry'] || '?'} (#{story['eventRegion'] || '?'})"
 
 corrob = story['corroboration'] || {}
-puts; puts "— Corroboration: #{corrob['count'] || 0} independent sources —"
+puts; puts "- Corroboration: #{corrob['count'] || 0} independent sources -"
 (corrob['sourceDetails'] || []).each do |sd|
   puts "  • #{(sd['name'] || '').ljust(22)} (#{sd['region']}, #{sd['language']}, #{sd['medium']})"
 end
 
-puts; puts '— Timeline of developments —'
+puts; puts '- Timeline of developments -'
 (story['timeline'] || []).each { |t| puts "  #{t['at']}  #{t['text']}" }
 
-puts; puts '— Verbatim source quotes —'
+puts; puts '- Verbatim source quotes -'
 (story['sources'] || []).each do |s|
   puts "  [#{s['station']}]"
   puts %(  "#{s['quote']}")

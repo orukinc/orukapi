@@ -1,5 +1,5 @@
 // SSE consumer for /v1/stream. Requires Trader / Developer / Enterprise tier.
-// Standard library only — no third-party SSE client needed.
+// Standard library only - no third-party SSE client needed.
 //
 //	export ORUK_API_KEY=ork_xxxxxxxx
 //	go run ./cmd/sse
@@ -66,10 +66,10 @@ func streamOnce(ctx context.Context, key string, lastID *string) error {
 
 	switch resp.StatusCode {
 	case 401:
-		fmt.Fprintln(os.Stderr, "[sse] 401 unauthorized — check ORUK_API_KEY")
+		fmt.Fprintln(os.Stderr, "[sse] 401 unauthorized - check ORUK_API_KEY")
 		os.Exit(1)
 	case 403:
-		fmt.Fprintln(os.Stderr, "[sse] 403 forbidden — SSE requires Trader/Developer/Enterprise tier")
+		fmt.Fprintln(os.Stderr, "[sse] 403 forbidden - SSE requires Trader/Developer/Enterprise tier")
 		os.Exit(1)
 	}
 
@@ -127,7 +127,7 @@ func handle(eventType, raw string) {
 		fmt.Printf("  ↑ +%-20s now %v sources on %s\n",
 			get(d, "newSource"), d["count"], truncate(get(d, "storyId"), 4, 12))
 	case "heartbeat":
-		fmt.Printf("· heartbeat — %v sources live\n", d["activeSources"])
+		fmt.Printf("· heartbeat - %v sources live\n", d["activeSources"])
 	default:
 		fmt.Printf("[%s] %s\n", eventType, raw)
 	}

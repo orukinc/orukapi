@@ -140,7 +140,7 @@ curl -s -X POST -H "X-API-Key: $ORUK_API_KEY" \
   https://api.oruk.ai/v1/webhooks | jq .
 ```
 
-Response includes a `secret` — store it. Every payload sent to your endpoint will carry an `X-Oruk-Signature: sha256=<hex>` header that's an HMAC-SHA256 of the request body with that secret. See the PHP / Python / JS examples for verification code.
+Response includes a `secret` - store it. Every payload sent to your endpoint will carry an `X-Oruk-Signature: sha256=<hex>` header that's an HMAC-SHA256 of the request body with that secret. See the PHP / Python / JS examples for verification code.
 
 ## Tip: Show response headers
 
@@ -150,7 +150,7 @@ curl -s -i -H "X-API-Key: $ORUK_API_KEY" \
 ```
 
 Useful headers to check:
-- `x-request-id` — include in any support ticket
-- `x-ratelimit-remaining` — calls left this month
-- `x-oruk-tier` — your tier as the backend sees it
-- `retry-after` — present on 429 responses
+- `x-request-id` - include in any support ticket
+- `x-ratelimit-remaining` - calls left this month
+- `x-oruk-tier` - your tier as the backend sees it
+- `retry-after` - present on 429 responses

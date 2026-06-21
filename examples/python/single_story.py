@@ -42,18 +42,18 @@ def main() -> None:
     print(f"Updated:    {story.get('updatedAt','')}")
 
     corrob = story.get("corroboration") or {}
-    print(f"\n— Corroboration: {corrob.get('count', 0)} independent sources —")
+    print(f"\n- Corroboration: {corrob.get('count', 0)} independent sources -")
     for sd in corrob.get("sourceDetails", []):
         print(
             f"  • {sd.get('name', ''):22s} "
             f"({sd.get('region','')}, {sd.get('language','')}, {sd.get('medium','')})"
         )
 
-    print("\n— Timeline of developments —")
+    print("\n- Timeline of developments -")
     for t in story.get("timeline", []):
         print(f"  {t.get('at','')}  {t.get('text','')}")
 
-    print("\n— Verbatim source quotes —")
+    print("\n- Verbatim source quotes -")
     for s in story.get("sources", []):
         print(f"  [{s.get('station','')}]")
         print(f"  \"{s.get('quote','')}\"\n")

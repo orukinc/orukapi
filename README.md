@@ -1,4 +1,4 @@
-# oruk API — examples and reference
+# oruk API - examples and reference
 
 Real-world examples for using the [oruk](https://oruk.ai) live broadcast intelligence API in **PHP, Python, JavaScript, TypeScript, Ruby, Go, and curl**.
 
@@ -15,7 +15,7 @@ oruk listens to ~200 radio, TV, social, and structured feeds in real time and pu
 ## Quick start
 
 ```bash
-# Public feed — no key required
+# Public feed - no key required
 curl https://api.oruk.ai/v1/stories/feed?limit=10
 
 # Authed feed with filters
@@ -35,7 +35,7 @@ Pass your API key on every authed request. Three accepted formats:
 |---|---|
 | Preferred | `X-API-Key: ork_xxxx` |
 | OAuth-style | `Authorization: Bearer ork_xxxx` |
-| EventSource fallback | `?api_key=ork_xxxx` (SSE only — for browsers that can't set headers) |
+| EventSource fallback | `?api_key=ork_xxxx` (SSE only - for browsers that can't set headers) |
 
 **Public endpoints** (no key required, no quota counted): `GET /health`, `GET /v1/health`, `GET /v1/stories/feed`.
 
@@ -63,7 +63,7 @@ Everything else under `/v1/*` needs a key. Get one at <https://oruk.ai/dashboard
 |---|---|---|
 | `limit` | int 1-100 | default 20 |
 | `cursor` | string | story id from a prior page |
-| `category` | string | one of the 12 categories — see below |
+| `category` | string | one of the 12 categories - see below |
 | `since` | ISO 8601 | `2026-04-28` or `2026-04-28T15:00:00Z` |
 | `topics` | csv | topic filter (intersection) |
 | `q` | string | full-text across headline / summary / body / source / city |
@@ -78,7 +78,7 @@ Everything else under `/v1/*` needs a key. Get one at <https://oruk.ai/dashboard
 
 ## Story shape
 
-Every story payload — from `/v1/stories`, `/v1/stories/feed`, `/v1/stories/{id}`, or the SSE stream — looks like this:
+Every story payload - from `/v1/stories`, `/v1/stories/feed`, `/v1/stories/{id}`, or the SSE stream - looks like this:
 
 ```json
 {
@@ -122,7 +122,7 @@ Every story payload — from `/v1/stories`, `/v1/stories/feed`, `/v1/stories/{id
 Field semantics worth knowing:
 
 - **`corroboration.count`** is *independent* sources, not raw mentions. Two AP wires republished by different outlets count once.
-- **`eventCity` / `eventCountry` / `eventRegion`** are where the news *happened* — don't confuse with `sources[*].medium` (where the broadcaster sits).
+- **`eventCity` / `eventCountry` / `eventRegion`** are where the news *happened* - don't confuse with `sources[*].medium` (where the broadcaster sits).
 - **`confidence`** is the LLM extractor's self-reported confidence. Use `>= 0.85` for high-confidence reads, `>= 0.95` for automated decisioning.
 - **`medium`** is one of `audio_radio`, `social`, `structured`.
 
@@ -149,8 +149,8 @@ Every error response has the same shape:
 | 400 | `invalid_request` | Malformed query parameters |
 | 401 | `unauthorized` | Missing or invalid API key |
 | 404 | `not_found` | Unknown story id |
-| 429 | `rate_limit_exceeded` | Monthly quota exhausted — honor `Retry-After` |
-| 500 | `internal_error` | Backend hiccup — retry with exponential backoff |
+| 429 | `rate_limit_exceeded` | Monthly quota exhausted - honor `Retry-After` |
+| 500 | `internal_error` | Backend hiccup - retry with exponential backoff |
 | 503 | `service_unavailable` | Pipeline temporarily down (rare) |
 
 Every response carries `x-request-id`. Include it in support tickets.
@@ -228,10 +228,10 @@ Each subfolder has runnable code with a tiny README. Set `ORUK_API_KEY` in your 
 | Go | [examples/go/](examples/go/) |
 
 Every example covers four things consistently:
-1. **Basic** — fetch the public feed and a filtered authed list
-2. **Single story** — `GET /v1/stories/{id}` with parsed corroboration
-3. **SSE** — connect to `/v1/stream` and handle `story` / `corroboration` / `heartbeat` events
-4. **Webhook verify** — HMAC-SHA256 verification of an inbound webhook (PHP, Python, JS only — same pattern in every language)
+1. **Basic** - fetch the public feed and a filtered authed list
+2. **Single story** - `GET /v1/stories/{id}` with parsed corroboration
+3. **SSE** - connect to `/v1/stream` and handle `story` / `corroboration` / `heartbeat` events
+4. **Webhook verify** - HMAC-SHA256 verification of an inbound webhook (PHP, Python, JS only - same pattern in every language)
 
 ---
 
@@ -265,24 +265,23 @@ Without a key, the MCP runs in `public` mode and serves the freshest 50 stories 
 
 Building an autonomous agent? oruk publishes machine-readable discovery files:
 
-- `https://oruk.ai/.well-known/ai.json` — full capability manifest
-- `https://oruk.ai/.well-known/agent.json` — lightweight skill card
-- `https://oruk.ai/AGENTS.md` — operating guide with citation rules
-- `https://oruk.ai/llms.txt` — curated LLM index
-- `https://oruk.ai/llms-full.txt` — exhaustive LLM context
+- `https://oruk.ai/.well-known/ai.json` - full capability manifest
+- `https://oruk.ai/.well-known/agent.json` - lightweight skill card
+- `https://oruk.ai/AGENTS.md` - operating guide with citation rules
+- `https://oruk.ai/llms.txt` - curated LLM index
+- `https://oruk.ai/llms-full.txt` - exhaustive LLM context
 
 ---
 
 ## Support
 
-- **Email** — <support@oruk.ai>
-- **Editorial corrections** — <editorial@oruk.ai>
-- **Sales / Enterprise** — <sales@oruk.ai> or <enterprise@oruk.ai>
-- **Status** — <https://api.oruk.ai/health>
-- **Changelog** — <https://oruk.ai/changelog>
+- **Email** - <support@oruk.ai>
+- **Editorial corrections** - <editorial@oruk.ai>
+- **Sales / Enterprise** - <sales@oruk.ai> or <enterprise@oruk.ai>
+- **Status**: <https://api.oruk.ai/health>
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Use these snippets however you like.
+MIT - see [LICENSE](LICENSE). Use these snippets however you like.

@@ -19,7 +19,7 @@ import (
 
 const BaseURL = "https://api.oruk.ai"
 
-// Client is the entry point. Zero value is invalid — use New.
+// Client is the entry point. Zero value is invalid - use New.
 type Client struct {
 	APIKey  string
 	BaseURL string
@@ -43,7 +43,7 @@ type APIError struct {
 	RequestID string `json:"-"`
 }
 
-func (e *APIError) Error() string { return fmt.Sprintf("oruk API: %s — %s", e.Code, e.Message) }
+func (e *APIError) Error() string { return fmt.Sprintf("oruk API: %s - %s", e.Code, e.Message) }
 
 // Story is the canonical event shape returned by every endpoint.
 type Story struct {

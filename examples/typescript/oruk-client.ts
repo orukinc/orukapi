@@ -9,7 +9,7 @@ export class OrukAPIError extends Error {
   readonly code: string;
   readonly requestId?: string;
   constructor(status: number, code: string, message: string, requestId?: string) {
-    super(`oruk API: ${code} — ${message}`);
+    super(`oruk API: ${code} - ${message}`);
     this.name = 'OrukAPIError';
     this.status = status;
     this.code = code;

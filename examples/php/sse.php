@@ -1,6 +1,6 @@
 <?php
 /**
- * SSE consumer for /v1/stream — requires Trader, Developer, or Enterprise tier.
+ * SSE consumer for /v1/stream - requires Trader, Developer, or Enterprise tier.
  *
  *   export ORUK_API_KEY=ork_xxxxxxxx
  *   php sse.php
@@ -28,7 +28,7 @@ while (true) {
     $writeCb = function ($ch, string $chunk) use (
         &$buffer, &$currentEvent, &$dataLines, &$lastEventId
     ): int {
-        // Railway sometimes uses \r\n event separators — normalise.
+        // Railway sometimes uses \r\n event separators - normalise.
         $buffer = str_replace("\r\n", "\n", $buffer . $chunk);
 
         while (($pos = strpos($buffer, "\n\n")) !== false) {
@@ -78,8 +78,8 @@ while (true) {
     $err    = curl_error($ch);
     curl_close($ch);
 
-    if ($status === 401) exit("[sse] 401 unauthorized — check your API key.\n");
-    if ($status === 403) exit("[sse] 403 forbidden — SSE requires Trader/Developer/Enterprise tier.\n");
+    if ($status === 401) exit("[sse] 401 unauthorized - check your API key.\n");
+    if ($status === 403) exit("[sse] 403 forbidden - SSE requires Trader/Developer/Enterprise tier.\n");
 
     fwrite(STDERR, "[sse] disconnected (status=$status err=$err). Backing off {$retry}s...\n");
     sleep($retry);
@@ -106,7 +106,7 @@ function handle_event(string $type, array $data): void {
             break;
 
         case 'heartbeat':
-            printf("· heartbeat — %d sources live\n", $data['activeSources'] ?? 0);
+            printf("· heartbeat - %d sources live\n", $data['activeSources'] ?? 0);
             break;
 
         default:

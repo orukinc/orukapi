@@ -1,4 +1,4 @@
-"""OrukClient — minimal `requests`-based client for the oruk live broadcast
+"""OrukClient - minimal `requests`-based client for the oruk live broadcast
 intelligence API. Drop into any Python 3.9+ project.
 
     from oruk_client import OrukClient
@@ -17,7 +17,7 @@ import requests
 
 class OrukAPIError(RuntimeError):
     def __init__(self, status: int, code: str, message: str, request_id: Optional[str] = None):
-        super().__init__(f"oruk API: {code} — {message}")
+        super().__init__(f"oruk API: {code} - {message}")
         self.status = status
         self.code = code
         self.message = message
@@ -44,7 +44,7 @@ class OrukClient:
     # ----- Endpoint shortcuts -----
 
     def feed(self, **params: Any) -> dict:
-        """Public feed — works without a key."""
+        """Public feed - works without a key."""
         return self._get("/v1/stories/feed", params=params, requires_key=False)
 
     def stories(self, **params: Any) -> dict:
