@@ -1,0 +1,21 @@
+{
+  "name": "oruk-api-examples",
+  "version": "1.0.0",
+  "description": "Node.js examples for the oruk live broadcast intelligence API",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "basic": "node basic.js",
+    "story": "node single_story.js",
+    "sse": "node sse.js",
+    "webhook": "node webhook_verify.js"
+  },
+  "dependencies": {
+    "eventsource": "^2.0.2",
+    "express": "^4.19.2"
+  },
+  "license": "MIT"
+}

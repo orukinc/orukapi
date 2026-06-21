@@ -1,0 +1,28 @@
+# Language artifacts
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+vendor/
+*.gem
+.bundle/
+go.sum
+
+# Build output
+dist/
+build/
+*.o
+bin/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Editors
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
