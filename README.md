@@ -217,7 +217,7 @@ Up to 5 active webhooks per account.
 
 Each subfolder has runnable code with a tiny README. Set `ORUK_API_KEY` in your environment first (`export ORUK_API_KEY=ork_xxxxxxxx`).
 
-| Language | Folder |
+| Language / tool | Folder |
 |---|---|
 | curl | [examples/curl/](examples/curl/) |
 | PHP | [examples/php/](examples/php/) |
@@ -226,6 +226,7 @@ Each subfolder has runnable code with a tiny README. Set `ORUK_API_KEY` in your 
 | TypeScript | [examples/typescript/](examples/typescript/) |
 | Ruby | [examples/ruby/](examples/ruby/) |
 | Go | [examples/go/](examples/go/) |
+| Postman collection | [examples/postman/](examples/postman/) |
 
 Every example covers four things consistently:
 1. **Basic** - fetch the public feed and a filtered authed list

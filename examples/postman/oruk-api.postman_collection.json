@@ -1,0 +1,390 @@
+{
+  "info": {
+    "_postman_id": "f1b9a3c0-0000-4000-8000-orukapi00001",
+    "name": "oruk API",
+    "description": "Live broadcast intelligence API. Real-time news from ~200 radio, TV, social, and structured feeds with multi-source corroboration.\n\n- Base URL: `https://api.oruk.ai`\n- Docs: https://oruk.ai/docs\n- Dashboard (get an API key): https://oruk.ai/dashboard\n\nSet the `apiKey` environment variable to your `ork_…` key. The public feed and `/health` endpoints work without one.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {"key": "key",   "value": "X-API-Key",     "type": "string"},
+      {"key": "value", "value": "{{apiKey}}",    "type": "string"},
+      {"key": "in",    "value": "header",        "type": "string"}
+    ]
+  },
+  "variable": [
+    {"key": "baseUrl",  "value": "https://api.oruk.ai", "type": "string"},
+    {"key": "storyId",  "value": "evt_8f3a2b",          "type": "string"}
+  ],
+  "item": [
+    {
+      "name": "Public (no key required)",
+      "description": "Endpoints that work without an API key. Override auth on these requests to `noauth` to avoid sending the header unnecessarily.",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "auth": {"type": "noauth"},
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": {"raw": "{{baseUrl}}/v1/health", "host": ["{{baseUrl}}"], "path": ["v1", "health"]},
+            "description": "Liveness probe. Returns `{ok: true, ...}` when the pipeline is up."
+          }
+        },
+        {
+          "name": "Feed - latest stories",
+          "request": {
+            "auth": {"type": "noauth"},
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories/feed?limit=10&sort=recent",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories", "feed"],
+              "query": [
+                {"key": "limit", "value": "10", "description": "1-100, default 20"},
+                {"key": "sort",  "value": "recent", "description": "`recent` (default) or `impact`"},
+                {"key": "since_hours", "value": "4", "description": "1-168, default 4", "disabled": true}
+              ]
+            },
+            "description": "Pre-built feed of the latest stories. No auth, no quota. Same data that powers the public wire on oruk.ai."
+          }
+        },
+        {
+          "name": "Feed - top impact (last 24h)",
+          "request": {
+            "auth": {"type": "noauth"},
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories/feed?limit=20&sort=impact&since_hours=24",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories", "feed"],
+              "query": [
+                {"key": "limit", "value": "20"},
+                {"key": "sort",  "value": "impact"},
+                {"key": "since_hours", "value": "24"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stories",
+      "description": "Authed `GET /v1/stories` with every common filter combination as a starting point.",
+      "item": [
+        {
+          "name": "List - all categories, latest 20",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [{"key": "limit", "value": "20"}]
+            }
+          }
+        },
+        {
+          "name": "Filter - conflict, min_impact 7",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?category=conflict&min_impact=7&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "category",   "value": "conflict"},
+                {"key": "min_impact", "value": "7"},
+                {"key": "limit",      "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter - country + region",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?country=US&region=North America&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "country", "value": "US",            "description": "ISO 3166-1 alpha-2"},
+                {"key": "region",  "value": "North America"},
+                {"key": "limit",   "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter - breaking news",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?urgency=breaking&min_impact=5&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "urgency",    "value": "breaking", "description": "breaking | developing | routine"},
+                {"key": "min_impact", "value": "5"},
+                {"key": "limit",      "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter - high confidence only",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?min_confidence=0.9&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "min_confidence", "value": "0.9", "description": "0.0-1.0"},
+                {"key": "limit",          "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search - full text",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?q=earthquake&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "q",     "value": "earthquake", "description": "Searches headline / summary / body / source / city"},
+                {"key": "limit", "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search - topics intersection",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?topics=Iran,sanctions&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "topics", "value": "Iran,sanctions", "description": "Comma-separated; stories must match every topic"},
+                {"key": "limit",  "value": "20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pagination - first page",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Capture the cursor for the next page",
+                  "const json = pm.response.json();",
+                  "if (json?.meta?.cursor) {",
+                  "    pm.environment.set('cursor', json.meta.cursor);",
+                  "    console.log('Saved cursor for next page:', json.meta.cursor);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?category=economy&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "category", "value": "economy"},
+                {"key": "limit",    "value": "50"}
+              ]
+            },
+            "description": "Run this, then run 'Pagination - next page' to walk through. The test script captures `meta.cursor` into the `cursor` env var."
+          }
+        },
+        {
+          "name": "Pagination - next page",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?category=economy&limit=50&cursor={{cursor}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "category", "value": "economy"},
+                {"key": "limit",    "value": "50"},
+                {"key": "cursor",   "value": "{{cursor}}", "description": "From the prior response's meta.cursor"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export - JSONL (last 7 days)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/x-ndjson"}],
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?since=2026-04-21&limit=100&format=jsonl",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "since",  "value": "2026-04-21", "description": "ISO 8601 date or datetime"},
+                {"key": "limit",  "value": "100"},
+                {"key": "format", "value": "jsonl",      "description": "json | csv | jsonl"}
+              ]
+            },
+            "description": "Newline-delimited JSON, one story per line. Save the response body to a file for ingestion into your pipeline."
+          }
+        },
+        {
+          "name": "Export - CSV",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "text/csv"}],
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories?since=2026-04-21&limit=100&format=csv",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories"],
+              "query": [
+                {"key": "since",  "value": "2026-04-21"},
+                {"key": "limit",  "value": "100"},
+                {"key": "format", "value": "csv"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get one story by id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/stories/{{storyId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "stories", "{{storyId}}"]
+            },
+            "description": "Returns the full story including timeline of developments, source corroboration with verbatim quotes, and event coordinates. Set the `storyId` env var to an `evt_…` id from any list response."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catalog",
+      "item": [
+        {
+          "name": "Sources - all",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{baseUrl}}/v1/sources", "host": ["{{baseUrl}}"], "path": ["v1", "sources"]},
+            "description": "Every monitored source: name, city, region, country, language, default category, medium (audio_radio / social / structured), live status."
+          }
+        },
+        {
+          "name": "Sources - filter by region",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/sources?region=Europe",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "sources"],
+              "query": [{"key": "region", "value": "Europe"}]
+            }
+          }
+        },
+        {
+          "name": "Regions",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{baseUrl}}/v1/regions", "host": ["{{baseUrl}}"], "path": ["v1", "regions"]},
+            "description": "Aggregated regional story counts for map and analytics overlays."
+          }
+        },
+        {
+          "name": "Stats",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{baseUrl}}/v1/stats", "host": ["{{baseUrl}}"], "path": ["v1", "stats"]},
+            "description": "System-wide stats: active sources, stories total, transcription throughput, top categories, last cycle time, uptime."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stream (SSE)",
+      "description": "Server-Sent Events. Requires Trader, Developer, or Enterprise tier; Free/Pro return 403.\n\nPostman Desktop (v10.18+) supports SSE natively: open the request, click Send, and a 'Streamed Response' panel appears with each `event:` line.",
+      "item": [
+        {
+          "name": "Stream - live wire",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Accept",        "value": "text/event-stream"},
+              {"key": "Cache-Control", "value": "no-cache"}
+            ],
+            "url": {"raw": "{{baseUrl}}/v1/stream", "host": ["{{baseUrl}}"], "path": ["v1", "stream"]},
+            "description": "Three event types you will see:\n- `story` - new or updated story payload (full Story shape)\n- `corroboration` - existing story confirmed by another source\n- `heartbeat` - system pulse with active source count"
+          }
+        },
+        {
+          "name": "Stream - resume from Last-Event-ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Accept",         "value": "text/event-stream"},
+              {"key": "Cache-Control",  "value": "no-cache"},
+              {"key": "Last-Event-ID",  "value": "{{storyId}}", "description": "Resume the stream from after this event id"}
+            ],
+            "url": {"raw": "{{baseUrl}}/v1/stream", "host": ["{{baseUrl}}"], "path": ["v1", "stream"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks (Developer+)",
+      "description": "Subscribe HTTPS endpoints to live `story` and `corroboration` events. Up to 5 active webhooks per account. Every payload is HMAC-SHA256 signed with your webhook secret in the `X-Oruk-Signature` header.",
+      "item": [
+        {
+          "name": "Create webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://your-app.com/hooks/oruk\",\n  \"events\": [\"story\", \"corroboration\"],\n  \"filters\": {\n    \"categories\": [\"conflict\", \"disaster\"],\n    \"min_impact\": 7,\n    \"min_confidence\": 0.85,\n    \"country\": \"US\"\n  }\n}"
+            },
+            "url": {"raw": "{{baseUrl}}/v1/webhooks", "host": ["{{baseUrl}}"], "path": ["v1", "webhooks"]},
+            "description": "The response includes a `secret` field. Store it: every event posted to your URL will carry `X-Oruk-Signature: sha256=<hex>` which is an HMAC-SHA256 of the raw request body using that secret. See examples/php/webhook_verify.php, examples/python/webhook_verify.py, and examples/javascript/webhook_verify.js for verification snippets."
+          }
+        },
+        {
+          "name": "List webhooks",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{baseUrl}}/v1/webhooks", "host": ["{{baseUrl}}"], "path": ["v1", "webhooks"]}
+          }
+        },
+        {
+          "name": "Delete webhook",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/v1/webhooks/whk_xxxxxxxx",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "webhooks", "whk_xxxxxxxx"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
